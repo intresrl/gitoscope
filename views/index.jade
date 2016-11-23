@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title} 
+  button#reload reload
+  span autoreload
+  input(type="checkbox", name="auto")#autoreload
+  div#header
+  div#repo
+  div#areas
+    div#work
+    div#cache
+    div#tree
