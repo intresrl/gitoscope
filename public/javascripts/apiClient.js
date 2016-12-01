@@ -10,6 +10,7 @@ $( document ).ready(function() {
 	    var cachePromise = $.get(`/api/diffCached/${name}`);
 	    var treePromise = $.get(`/api/entry/${name}`);
     	$.when(workPromise,cachePromise,treePromise).then((r1, r2, r3)=>{
+    		$('#filenamename').html(name);
 			var tree = r3[0];
 			$('#tree').html(tree);
 
@@ -144,6 +145,7 @@ $( document ).ready(function() {
 		if (document.location.hash !== ''){
 	    	loadAreas(document.location.hash.replace('#',''));
 	    } else {
+            $('#filenamename').html('-');
 			$('#tree').html('');
 			$('#work').html('');
 			$('#cache').html('');
