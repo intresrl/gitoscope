@@ -159,12 +159,20 @@ $( document ).ready(function() {
 
 	$('#reload').click(loadData)
 
-	var interval;
-	$(':checkbox').change(function() {
-		clearInterval(interval)
-		if (this.checked){
-			interval = setInterval(loadData, 500)
+	var checked;
+    function manageChange(){
+		if (checked){
+            loadData();
+            setTimeout(manageChange, 500);
 		}
+    }
+
+	$(':checkbox').change(function() {
+        checked = this.checked;
+        if (this.checked){
+			manageChange();
+        }
+
 	})
 
 	loadData()
