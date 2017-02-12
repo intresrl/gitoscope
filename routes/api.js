@@ -6,12 +6,7 @@ const apiController = require('../controllers/apiController');
 
 router.get('/status', apiController.getStatus);
 router.get('/tree', apiController.getTree);
-router.get('/entry/:name([\\w.]+)', function(req, res, next) {
-  res.setHeader('Content-Type', 'application/json');
-  
-  git.getFile(req.params['name'], (data)=>res.send(JSON.stringify(data)))
-
-});
+router.get('/entry/:name([\\w.]+)', apiController.getEntry);
 router.get('/diff/:name([\\w.]+)', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   
