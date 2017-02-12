@@ -20,10 +20,7 @@ function parametricResponseFactory(gitFunction){
 
 const getTree = responseFactory(git.getTree);
 const getStatus = responseFactory(git.getStatus);
+const getEntry = parametricResponseFactory(git.getFile);
+const getDiff = parametricResponseFactory(git.getDiff);
 
-function getEntry(req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
-    git.getFile(req.params['name'], (data)=>res.send(JSON.stringify(data)))
-}
-
-module.exports = {responseFactory, parametricResponseFactory, getStatus, getTree, getEntry};
+module.exports = {responseFactory, parametricResponseFactory, getStatus, getTree, getEntry, getDiff};
