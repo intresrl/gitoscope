@@ -22,5 +22,6 @@ const getTree = responseFactory(git.getTree);
 const getStatus = responseFactory(git.getStatus);
 const getEntry = parametricResponseFactory(git.getFile);
 const getDiff = parametricResponseFactory(git.getDiff);
+const getDiffCached = parametricResponseFactory(git.getDiffCached);
 
-module.exports = {responseFactory, parametricResponseFactory, getStatus, getTree, getEntry, getDiff};
+module.exports = {responseFactory, parametricResponseFactory, getStatus, getTree, getEntry, getDiff, getDiffCached};
