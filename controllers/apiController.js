@@ -26,9 +26,16 @@ function parametricResponseFactory(gitFunction){
     }
 }
 
+function parametricPromiseResponseFactory(gitFunction){
+    return function(req, res, next){
+        res.setHeader('Content-Type', 'application/json');
+        gitFunction(req.params['name']).then((data)=>respondWithJson(res, data))
+    }
+}
+
 const getTree = promiseResponseFactory(git.getTree);
 const getStatus = promiseResponseFactory(git.getStatus);
-const getEntry = parametricResponseFactory(git.getFile);
+const getEntry = parametricPromiseResponseFactory(git.getFile);
 const getDiff = parametricResponseFactory(git.getDiff);
 const getDiffCached = parametricResponseFactory(git.getDiffCached);
 
