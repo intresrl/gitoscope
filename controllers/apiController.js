@@ -27,7 +27,7 @@ function parametricResponseFactory(gitFunction){
 }
 
 const getTree = promiseResponseFactory(git.getTree);
-const getStatus = responseFactory(git.getStatus);
+const getStatus = promiseResponseFactory(git.getStatus);
 const getEntry = parametricResponseFactory(git.getFile);
 const getDiff = parametricResponseFactory(git.getDiff);
 const getDiffCached = parametricResponseFactory(git.getDiffCached);
