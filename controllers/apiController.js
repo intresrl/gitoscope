@@ -36,7 +36,7 @@ function parametricPromiseResponseFactory(gitFunction){
 const getTree = promiseResponseFactory(git.getTree);
 const getStatus = promiseResponseFactory(git.getStatus);
 const getEntry = parametricPromiseResponseFactory(git.getFile);
-const getDiff = parametricResponseFactory(git.getDiff);
-const getDiffCached = parametricResponseFactory(git.getDiffCached);
+const getDiff = parametricPromiseResponseFactory(git.getDiff);
+const getDiffCached = parametricPromiseResponseFactory(git.getDiffCached);
 
 module.exports = {responseFactory, parametricResponseFactory, getStatus, getTree, getEntry, getDiff, getDiffCached};[]
