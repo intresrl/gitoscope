@@ -26,11 +26,15 @@ function parametricResponseFactory(gitFunction){
     }
 }
 
-function parametricPromiseResponseFactory(gitFunction){
-    return function(req, res, next){
+function parametricResponse(gitFunction, paramName) {
+
+    return function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
-        gitFunction(req.params['name']).then((data)=>respondWithJson(res, data))
+        gitFunction(req.params[paramName]).then((data) => respondWithJson(res, data)).catch((err)=>err);
     }
+}
+function parametricPromiseResponseFactory(gitFunction){
+    return parametricResponse(gitFunction, 'name');
 }
 
 const getTree = promiseResponseFactory(git.getTree);
