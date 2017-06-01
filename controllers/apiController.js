@@ -38,6 +38,7 @@ function parametricPromiseResponseFactory(gitFunction){
 }
 
 const getTree = promiseResponseFactory(git.getTree);
+const getReferences = promiseResponseFactory(git.getReferences);
 const getStatus = promiseResponseFactory(git.getStatus);
 const getEntry = parametricPromiseResponseFactory(git.getFile);
 const getDiff = parametricPromiseResponseFactory(git.getDiff);
@@ -48,5 +49,5 @@ const getBlobRest = parametricResponse(git.getBlobRest, 'blobId');
 
 
 module.exports = {responseFactory, parametricResponseFactory, getStatus, getTree, getEntry, getDiff, getDiffCached,
-    getCommit, getTreeRest, getBlobRest
+    getCommit, getTreeRest, getBlobRest, getReferences
 };

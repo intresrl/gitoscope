@@ -12,5 +12,6 @@ router.get('/diffcached/:name([\\w.]+)', apiController.getDiffCached);
 router.get('/commits/:commitId(\\w+)', apiController.getCommit);
 router.get('/trees/:treeId(\\w+)', apiController.getTreeRest);
 router.get('/blobs/:blobId(\\w+)', apiController.getBlobRest);
+router.get('/references', apiController.getReferences);
 
 module.exports = router;

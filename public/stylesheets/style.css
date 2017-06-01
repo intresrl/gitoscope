@@ -88,3 +88,8 @@ body {
 	padding: 4px;
     white-space: pre-wrap;
 }
+
+#gitgraph{
+	height:450px;
+	background-color: #9ac3a7;
+}
