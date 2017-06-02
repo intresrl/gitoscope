@@ -69,7 +69,10 @@ $( document ).ready(function() {
     getHeadCommit().then(addCommitToTreeWithInternals);
 
     function addCommitToTreeWithInternals(commit){
-        addCommit(commit.parents[0]);
+        head = null;
+        if (commit.parents.length > 0){
+            addCommit(commit.parents[0]);
+        }
         cy.elements('#'+commit.parents[0]).once('click', function(event){
             getCommit(event.cyTarget.data().id).then(addCommitToTreeWithInternals);
             // console.log(event.cy);
