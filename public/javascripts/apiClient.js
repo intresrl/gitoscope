@@ -17,7 +17,7 @@ $( document ).ready(function() {
 
 			var diff = r1[0];
 			if (diff.length > 0){
-						var work = tree.split(/[\r\n]+/);
+						var work = tree.split(/\r?\n/).map(x=>x+'\n');
 						var work1 = applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines)
 						$('#work').html(work1.join(''));
 			} else {
@@ -26,7 +26,7 @@ $( document ).ready(function() {
 			}
 			var diffCached = r2[0];
 			if (diffCached.length > 0){
-						var cache = tree.split(/[\r\n]+/);
+						var cache = tree.split(/\r?\n/).map(x=>x+'\n');
 						var cache1 = applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines)
 						$('#cache').html(cache1.join(''));
 					} else {
