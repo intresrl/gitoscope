@@ -19,5 +19,16 @@
   },
   "devDependencies": {
     "mocha": "^3.2.0"
-  }
+  },
+  "description": "Git Lens\r ========",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.intre.it:sac/gitLens.git"
+  },
+  "author": "",
+  "license": "ISC"
 }
