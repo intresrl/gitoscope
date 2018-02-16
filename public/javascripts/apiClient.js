@@ -59,6 +59,7 @@ $( document ).ready(function() {
 	  })
 	}
 
+	//ok
 	function renderHeader(){
 		return `<div class="header-entry">
 			<div class='area-title'>Working copy</div>
@@ -68,18 +69,22 @@ $( document ).ready(function() {
 		
 	}
 
+	//ok
 	function isInWork(props){
 		return !props.isDeleted;
 	}
 
+	//ok
 	function isInCache(props){
 		return !((props.inIndex && props.isDeleted) || (props.isNew && !props.inIndex));
 	}
 
+	//ok
 	function isInTree(props){
 		return props.inTree;
 	}
 
+	//ok
 	function diff(props){
 		if (isInWork(props) && !isInCache(props)){
 			return 'untracked'
@@ -92,6 +97,8 @@ $( document ).ready(function() {
 		}
 		return ''
 	}
+
+	//ok
 	function diffCached(props){
 		if (isInCache(props) && !isInTree(props)){
 			return 'new'
@@ -105,6 +112,7 @@ $( document ).ready(function() {
 		return ''
 	}
 
+	//ok
 	function renderRow(name, props){
 		return `<div class="entry" onclick="location.hash = '${name}';">
 			<div class="entry-cell entry-area work">${isInWork(props) ? name : ''}</div>
@@ -115,6 +123,7 @@ $( document ).ready(function() {
 		</div>`
 	}
 	
+	//ok
 	function updateStatus(){
 	    var treePromise = $.get('/api/tree');
 	    var statusPromise = $.get('/api/status');
@@ -141,6 +150,7 @@ $( document ).ready(function() {
 		})
 	}
 
+	//ok
 	function myLoadAreas(){
 		if (document.location.hash !== ''){
 	    	loadAreas(document.location.hash.replace('#',''));
@@ -152,6 +162,7 @@ $( document ).ready(function() {
 	    }
 	}
 
+	//ok
 	function loadData(){
 		updateStatus();
 		myLoadAreas();
