@@ -1,24 +1,27 @@
-//alert("qui ci metto tutto quello che serve per react")
 
+//Luca
+
+//alert("qui ci metto tutto quello che serve per react")
 $( document ).ready(function() {
 
-	const GitLens = React.createClass({
-		getInitialState () {
-			return {
+	class GitLens extends React.Component {
+		constructor(props) {
+			super(props);
+			this.state = {
 				workingCopy: [],
 				stagingArea: [],
 				headCommit: []
 			};
-		},
-		render() {
+		}
+		render () {
 			return (
 				<div>
 					<div>
-						<h1>GitLens 2.0</h1>
+						<h1>GitLens</h1>
 						<span>Welcome to GitLens</span>
 					</div>
 					<div>
-						<button onClick={loadData}>reload</button>
+						<button onClick={updateStatus}>reload</button>
 					</div>
 					<div>
 						<Area title="Working copy" elements={this.state.workingCopy}/>
@@ -26,31 +29,8 @@ $( document ).ready(function() {
 						<Area title="HEAD commit" elements={this.state.headCommit}/>
 					</div>
 				</div>
-				);
+				)
 		}
-	});
-
-	const Area = React.createClass({
-		propTypes: {
-			title: React.PropTypes.string.isRequired,
-			elements: React.PropTypes.array.isRequired
-		},
-
-		render() {
-			return (
-				<div>
-					<span>{this.props.title}</span>
-					<div>
-						{this.props.elements.map(row => <div className="entry-cell">{row}</div>)}
-					</div>
-				</div>
-			);
-		}
-	});
-
-	function loadData(){
-		updateStatus();
-		myLoadAreas();
 	}
 
 	function updateStatus(){
@@ -68,22 +48,37 @@ $( document ).ready(function() {
 				}
 			});
 
-			var entriesHtml = []
+			this.setState({
+				workingCopy: ['a','b','c'],
+				stagingArea: ['a','b'],
+				headCommit: ['a']
+			});
+
+			/*var entriesHtml = []
 			Object.keys(status).sort().forEach(entry => {
 				entriesHtml.push(<Row name={entry} properties={status[entry]} />)
-			})
-
-			ReactDOM.render(
-				<Header />,
-				document.getElementById('header')
-			);
-
-			ReactDOM.render(
-				entriesHtml.join(''),
-				document.getElementById('repo')
-			);
+			})*/
 		})
 	}
+
+	const Area = React.createClass({
+		propTypes: {
+			title: React.PropTypes.string.isRequired,
+			elements: React.PropTypes.array.isRequired
+		},
+
+		render() {
+			const style = {border: '1px solid black'};
+			return (
+				<div>
+					<span>{this.props.title}</span>
+					<div style={style}>
+						{this.props.map(row => <div className="entry-cell">{row}</div>)}
+					</div>
+				</div>
+			);
+		}
+	});
 
 	class Row extends React.Component {
 		render () {
@@ -175,5 +170,18 @@ $( document ).ready(function() {
 		<GitLens />,
 		document.getElementById('GitLens')
 		);
+
+	/*ReactDOM.render(
+		<div>
+			<Title />
+			<Message>Welcome to GitLens</Message>
+		</div>,
+		document.getElementById('title')
+		);
+
+	ReactDOM.render(
+		<ReloadButton />,
+		document.getElementById('reload')
+		);*/
 }
 )

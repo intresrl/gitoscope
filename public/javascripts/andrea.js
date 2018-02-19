@@ -1,52 +1,30 @@
-//alert("qui ci metto tutto quello che serve per react")
 
+//Andrea
+
+//alert("qui ci metto tutto quello che serve per react")
 $( document ).ready(function() {
 
-	const GitLens = React.createClass({
-		getInitialState () {
-			return {
-				workingCopy: [],
-				stagingArea: [],
-				headCommit: []
-			};
-		},
-		render() {
+	class Title extends React.Component {
+		render () {
 			return (
-				<div>
-					<div>
-						<h1>GitLens 2.0</h1>
-						<span>Welcome to GitLens</span>
-					</div>
-					<div>
-						<button onClick={loadData}>reload</button>
-					</div>
-					<div>
-						<Area title="Working copy" elements={this.state.workingCopy}/>
-						<Area title="Staging Area" elements={this.state.stagingArea}/>
-						<Area title="HEAD commit" elements={this.state.headCommit}/>
-					</div>
-				</div>
-				);
+				<h1>GitLens</h1>
+				)
 		}
-	});
+	}
 
-	const Area = React.createClass({
-		propTypes: {
-			title: React.PropTypes.string.isRequired,
-			elements: React.PropTypes.array.isRequired
-		},
+	class Message extends React.Component {
+		render () {
+			return this.props.children
+		}
+	}
 
-		render() {
+	class ReloadButton extends React.Component {
+		render () {
 			return (
-				<div>
-					<span>{this.props.title}</span>
-					<div>
-						{this.props.elements.map(row => <div className="entry-cell">{row}</div>)}
-					</div>
-				</div>
-			);
+				<button onClick={loadData}>reload</button>
+				)
 		}
-	});
+	}
 
 	function loadData(){
 		updateStatus();
@@ -172,8 +150,16 @@ $( document ).ready(function() {
 	}
 
 	ReactDOM.render(
-		<GitLens />,
-		document.getElementById('GitLens')
+		<div>
+			<Title />
+			<Message>Welcome to GitLens</Message>
+		</div>,
+		document.getElementById('title')
+		);
+
+	ReactDOM.render(
+		<ReloadButton />,
+		document.getElementById('reload')
 		);
 }
 )
