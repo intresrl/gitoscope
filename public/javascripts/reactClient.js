@@ -10,6 +10,18 @@ $( document ).ready(function() {
 				headCommit: []
 			};
 		},
+
+		checkManager(event) {
+			manageChange(event.target.checked);
+		},
+
+		manageChange(checked){
+			if (checked){
+				loadData();
+				setTimeout(this.manageChange, 500);
+			}
+		},
+
 		render() {
 			return (
 				<div>
@@ -19,6 +31,9 @@ $( document ).ready(function() {
 					</div>
 					<div>
 						<button onClick={loadData}>reload</button>
+						<span>
+							autoreload <input type="checkbox" id="autoreload" onChange={this.checkManager} />
+						</span>
 					</div>
 					<div>
 						<Area title="Working copy" elements={this.state.workingCopy}/>
@@ -48,7 +63,26 @@ $( document ).ready(function() {
 		}
 	});
 
-	function loadData(){
+	/*var checked;
+
+
+	function checkManager(event) {
+		debugger;
+		checked = autoreload.checked;
+        if (autoreload.checked){
+			manageChange();
+        }
+	}
+
+    function manageChange(){
+		if (checked){
+            loadData();
+            setTimeout(manageChange, 500);
+		}
+    }*/
+
+
+	function loadData() {
 		updateStatus();
 		myLoadAreas();
 	}
@@ -171,9 +205,14 @@ $( document ).ready(function() {
 		}
 	}
 
-	ReactDOM.render(
+	function renderGitLens() {
+		ReactDOM.render(
 		<GitLens />,
 		document.getElementById('GitLens')
 		);
+	}
+
+	renderGitLens()
+
 }
 )
