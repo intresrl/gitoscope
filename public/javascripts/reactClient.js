@@ -94,11 +94,6 @@ $( document ).ready(function() {
 			})
 
 			ReactDOM.render(
-				<Header />,
-				document.getElementById('header')
-			);
-
-			ReactDOM.render(
 				entriesHtml.join(''),
 				document.getElementById('repo')
 			);
@@ -167,28 +162,6 @@ $( document ).ready(function() {
 	    }
 	}
 
-	/*function myLoadAreas(){
-		if (document.location.hash !== ''){
-	    	loadAreas(document.location.hash.replace('#',''));
-	    } else {
-			ReactDOM.render(
-				'-',
-				document.getElementById('filename')
-			);
-			ReactDOM.render(
-				'',
-				document.getElementById('tree')
-			);
-			ReactDOM.render(
-				'',
-				document.getElementById('work')
-			);
-			ReactDOM.render(
-				'',
-				document.getElementById('cache')
-			);
-	    }
-	}*/
 
 	function loadAreas(name){
 	    var workPromise = $.get(`/api/diff/${name}`);
@@ -222,18 +195,6 @@ $( document ).ready(function() {
 		});
 
     }
-
-	class Header extends React.Component {
-		render () {
-			return (
-				<div className="header-entry">
-					<div className="area-title">Working copy</div>
-					<div className="area-title">Staging Area</div>
-					<div className="area-title">HEAD commit</div>
-				</div>
-				)
-		}
-	}
 
 	function renderGitLens() {
 		ReactDOM.render(
