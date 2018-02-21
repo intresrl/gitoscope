@@ -11,14 +11,19 @@ $( document ).ready(function() {
 			};
 		},
 
-		checkManager(event) {
-			manageChange(event.target.checked);
-		},
+		//checked: null,
 
-		manageChange(checked){
-			if (checked){
+		manageChange(){
+			if (this.checked){
 				loadData();
 				setTimeout(this.manageChange, 500);
+			}
+		},
+
+		change(event) {
+			this.checked = event.target.checked;
+			if (this.checked){
+				this.manageChange();
 			}
 		},
 
@@ -29,13 +34,13 @@ $( document ).ready(function() {
 						<h1>GitLens 2.0</h1>
 						<span>Welcome to GitLens</span>
 					</div>
-					<div>
+					<div style={{marginTop: '14px'}}>
 						<button onClick={loadData}>reload</button>
-						<span>
-							autoreload <input type="checkbox" id="autoreload" onChange={this.checkManager} />
+						<span style={{marginLeft: '20px'}}>
+							autoreload <input type="checkbox" id="autoreload" onChange={this.change} />
 						</span>
 					</div>
-					<div>
+					<div className="header-entry">
 						<Area title="Working copy" elements={this.state.workingCopy}/>
 						<Area title="Staging Area" elements={this.state.stagingArea}/>
 						<Area title="HEAD commit" elements={this.state.headCommit}/>
@@ -54,7 +59,7 @@ $( document ).ready(function() {
 		render() {
 			return (
 				<div>
-					<span>{this.props.title}</span>
+					<span className="area-title">{this.props.title}</span>
 					<div>
 						{this.props.elements.map(row => <div className="entry-cell">{row}</div>)}
 					</div>
@@ -62,25 +67,6 @@ $( document ).ready(function() {
 			);
 		}
 	});
-
-	/*var checked;
-
-
-	function checkManager(event) {
-		debugger;
-		checked = autoreload.checked;
-        if (autoreload.checked){
-			manageChange();
-        }
-	}
-
-    function manageChange(){
-		if (checked){
-            loadData();
-            setTimeout(manageChange, 500);
-		}
-    }*/
-
 
 	function loadData() {
 		updateStatus();
@@ -174,6 +160,17 @@ $( document ).ready(function() {
 		if (document.location.hash !== ''){
 	    	loadAreas(document.location.hash.replace('#',''));
 	    } else {
+            $('#filenamename').html('-');
+			$('#tree').html('');
+			$('#work').html('');
+			$('#cache').html('');
+	    }
+	}
+
+	/*function myLoadAreas(){
+		if (document.location.hash !== ''){
+	    	loadAreas(document.location.hash.replace('#',''));
+	    } else {
 			ReactDOM.render(
 				'-',
 				document.getElementById('filename')
@@ -191,7 +188,40 @@ $( document ).ready(function() {
 				document.getElementById('cache')
 			);
 	    }
-	}
+	}*/
+
+	function loadAreas(name){
+	    var workPromise = $.get(`/api/diff/${name}`);
+	    var cachePromise = $.get(`/api/diffCached/${name}`);
+	    var treePromise = $.get(`/api/entry/${name}`);
+    	$.when(workPromise,cachePromise,treePromise).then((r1, r2, r3)=>{
+    		$('#filenamename').html(name);
+			var tree = r3[0];
+			$('#tree').html(tree);
+
+
+			var diff = r1[0];
+			if (diff.length > 0){
+						var work = tree.split(/\r?\n/).map(x=>x+'\n');
+						var work1 = applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines)
+						$('#work').html(work1.join(''));
+			} else {
+						$('#work').html(tree);
+
+			}
+			var diffCached = r2[0];
+			if (diffCached.length > 0){
+						var cache = tree.split(/\r?\n/).map(x=>x+'\n');
+						var cache1 = applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines)
+						$('#cache').html(cache1.join(''));
+					} else {
+						$('#cache').html(tree);
+						
+					}
+
+		});
+
+    }
 
 	class Header extends React.Component {
 		render () {
@@ -199,7 +229,7 @@ $( document ).ready(function() {
 				<div className="header-entry">
 					<div className="area-title">Working copy</div>
 					<div className="area-title">Staging Area</div>
-					<div className="rea-title">HEAD commit</div>
+					<div className="area-title">HEAD commit</div>
 				</div>
 				)
 		}
