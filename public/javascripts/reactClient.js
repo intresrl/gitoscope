@@ -11,8 +11,6 @@ $( document ).ready(function() {
 			};
 		},
 
-		//checked: null,
-
 		manageChange(){
 			if (this.checked){
 				loadData();
@@ -40,31 +38,23 @@ $( document ).ready(function() {
 							autoreload <input type="checkbox" id="autoreload" onChange={this.change} />
 						</span>
 					</div>
-					<div className="header-entry">
-						<Area title="Working copy" elements={this.state.workingCopy}/>
-						<Area title="Staging Area" elements={this.state.stagingArea}/>
-						<Area title="HEAD commit" elements={this.state.headCommit}/>
+					<div>
+						<Header classNameDivAreas="header-entry" classNameSingleAreas="area-title" titleArea1="Working copy" titleArea2="Staging Area" titleArea3="HEAD commit" />
 					</div>
 				</div>
 				);
 		}
 	});
 
-	const Area = React.createClass({
-		propTypes: {
-			title: React.PropTypes.string.isRequired,
-			elements: React.PropTypes.array.isRequired
-		},
-
+	const Header = React.createClass({
 		render() {
 			return (
-				<div>
-					<span className="area-title">{this.props.title}</span>
-					<div>
-						{this.props.elements.map(row => <div className="entry-cell">{row}</div>)}
-					</div>
+				<div className={this.props.classNameDivAreas}>
+					<div className={this.props.classNameSingleAreas}>{this.props.titleArea1}</div>
+					<div className={this.props.classNameSingleAreas}>{this.props.titleArea2}</div>
+					<div className={this.props.classNameSingleAreas}>{this.props.titleArea3}</div>
 				</div>
-			);
+				)
 		}
 	});
 
@@ -73,7 +63,7 @@ $( document ).ready(function() {
 		myLoadAreas();
 	}
 
-	function updateStatus(){
+	/*function updateStatus(){
 	    var treePromise = $.get('/api/tree');
 	    var statusPromise = $.get('/api/status');
 		$.when(treePromise, statusPromise).then((r1, r2)=>{
@@ -98,7 +88,47 @@ $( document ).ready(function() {
 				document.getElementById('repo')
 			);
 		})
+	}*/
+
+	//INIZIO TEST
+
+	function updateStatus(){
+	    var treePromise = $.get('/api/tree');
+	    var statusPromise = $.get('/api/status');
+		$.when(treePromise, statusPromise).then((r1, r2)=>{
+			var tree = r1[0];
+			var status = r2[0];
+
+			tree.forEach((entry)=>{
+				if (status[entry]){
+					status[entry].inTree = true;
+				} else {
+					status[entry] = {inTree: true};
+				}
+			});
+
+			var entriesHtml = []
+			Object.keys(status).sort().forEach(entry => {
+				entriesHtml.push(renderRow(entry, status[entry]))
+			})
+
+			$('#repo').html(entriesHtml.join(''))
+
+		})
 	}
+
+	function renderRow(name, props){
+		return `<div class="entry" onclick="location.hash = '${name}';">
+			<div class="entry-cell entry-area work">${isInWork(props) ? name : ''}</div>
+			<div class="entry-cell diff">${diff(props)}</div>
+			<div class="entry-cell entry-area cache">${isInCache(props) ? name : ''}</div>
+			<div class="entry-cell diffcached">${diffCached(props)}</div>
+			<div class="entry-cell entry-area tree">${isInTree(props) ? name : ''}</div>
+		</div>`
+	}
+
+
+	//FINE TEST
 
 	class Row extends React.Component {
 		render () {
@@ -203,7 +233,8 @@ $( document ).ready(function() {
 		);
 	}
 
-	renderGitLens()
+	renderGitLens();
+	loadData();
 
 }
 )
