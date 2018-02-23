@@ -4,10 +4,9 @@ $( document ).ready(function() {
 
 	const GitLens = React.createClass({
 		getInitialState () {
+			this.loadData();
 			return {
-				workingCopy: [],
-				stagingArea: [],
-				headCommit: []
+				rows: []
 			};
 		},
 
@@ -25,6 +24,85 @@ $( document ).ready(function() {
 			}
 		},
 
+		loadData() {
+			this.updateStatus();
+			this.myLoadAreas();
+		},
+
+		updateStatus(){
+			var treePromise = $.get('/api/tree');
+			var statusPromise = $.get('/api/status');
+			$.when(treePromise, statusPromise).then((r1, r2)=>{
+				var tree = r1[0];
+				var status = r2[0];
+
+				tree.forEach((entry)=>{
+					if (status[entry]){
+						status[entry].inTree = true;
+					} else {
+						status[entry] = {inTree: true};
+					}
+				});
+
+				var entries = [];
+				Object.keys(status).sort().forEach(entry => {
+					var row = {record:entry, status:status[entry]};
+					entries.push(row);
+				});
+
+				this.setState({rows : entries});
+
+			})
+		},
+
+		myLoadAreas(){
+			if (document.location.hash !== ''){
+				this.loadAreas(document.location.hash.replace('#',''));
+			} else {
+				$('#filenamename').html('-');
+				$('#tree').html('');
+				$('#work').html('');
+				$('#cache').html('');
+			}
+		},
+
+		loadAreas(name){
+			var workPromise = $.get(`/api/diff/${name}`);
+			var cachePromise = $.get(`/api/diffCached/${name}`);
+			var treePromise = $.get(`/api/entry/${name}`);
+			$.when(workPromise,cachePromise,treePromise).then((r1, r2, r3)=>{
+				$('#filenamename').html(name);
+				var tree = r3[0];
+				$('#tree').html(tree);
+
+
+				var diff = r1[0];
+				if (diff.length > 0){
+					var work = tree.split(/\r?\n/).map(x=>x+'\n');
+					var work1 = this.applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines)
+					$('#work').html(work1.join(''));
+				} else {
+					$('#work').html(tree);
+				}
+				var diffCached = r2[0];
+				if (diffCached.length > 0){
+					var cache = tree.split(/\r?\n/).map(x=>x+'\n');
+					var cache1 = this.applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines)
+					$('#cache').html(cache1.join(''));
+				} else {
+					$('#cache').html(tree);
+
+				}
+
+			});
+
+		},
+
+		applyDiffLines(oldLinesv, oldStart, oldLines, lines){
+			oldLinesv.splice(oldStart -1, oldLines, ...lines)
+			return oldLinesv;
+		},
+
 		render() {
 			return (
 				<div>
@@ -33,17 +111,18 @@ $( document ).ready(function() {
 						<span>Welcome to GitLens</span>
 					</div>
 					<div style={{marginTop: '14px'}}>
-						<button onClick={loadData}>reload</button>
+						<button onClick={this.loadData}>reload</button>
 						<span style={{marginLeft: '20px'}}>
 							autoreload <input type="checkbox" id="autoreload" onChange={this.change} />
 						</span>
 					</div>
 					<div>
 						<Header classNameDivAreas="header-entry" classNameSingleAreas="area-title" titleArea1="Working copy" titleArea2="Staging Area" titleArea3="HEAD commit" />
+						<Table rows={this.state.rows} />
 					</div>
 				</div>
 				);
-		}
+		},
 	});
 
 	const Header = React.createClass({
@@ -58,91 +137,39 @@ $( document ).ready(function() {
 		}
 	});
 
-	function loadData() {
-		updateStatus();
-		myLoadAreas();
-	}
+	const Table = React.createClass({
+		propTypes: {
+			rows: React.PropTypes.array.isRequired
+		},
 
-	/*function updateStatus(){
-	    var treePromise = $.get('/api/tree');
-	    var statusPromise = $.get('/api/status');
-		$.when(treePromise, statusPromise).then((r1, r2)=>{
-			var tree = r1[0];
-			var status = r2[0];
-
-			tree.forEach((entry)=>{
-				if (status[entry]){
-					status[entry].inTree = true;
-				} else {
-					status[entry] = {inTree: true};
-				}
-			});
-
-			var entriesHtml = []
-			Object.keys(status).sort().forEach(entry => {
-				entriesHtml.push(<Row name={entry} properties={status[entry]} />)
-			})
-
-			ReactDOM.render(
-				entriesHtml.join(''),
-				document.getElementById('repo')
-			);
-		})
-	}*/
-
-	//INIZIO TEST
-
-	function updateStatus(){
-	    var treePromise = $.get('/api/tree');
-	    var statusPromise = $.get('/api/status');
-		$.when(treePromise, statusPromise).then((r1, r2)=>{
-			var tree = r1[0];
-			var status = r2[0];
-
-			tree.forEach((entry)=>{
-				if (status[entry]){
-					status[entry].inTree = true;
-				} else {
-					status[entry] = {inTree: true};
-				}
-			});
-
-			var entriesHtml = []
-			Object.keys(status).sort().forEach(entry => {
-				entriesHtml.push(renderRow(entry, status[entry]))
-			})
-
-			$('#repo').html(entriesHtml.join(''))
-
-		})
-	}
-
-	function renderRow(name, props){
-		return `<div class="entry" onclick="location.hash = '${name}';">
-			<div class="entry-cell entry-area work">${isInWork(props) ? name : ''}</div>
-			<div class="entry-cell diff">${diff(props)}</div>
-			<div class="entry-cell entry-area cache">${isInCache(props) ? name : ''}</div>
-			<div class="entry-cell diffcached">${diffCached(props)}</div>
-			<div class="entry-cell entry-area tree">${isInTree(props) ? name : ''}</div>
-		</div>`
-	}
-
-
-	//FINE TEST
-
-	class Row extends React.Component {
-		render () {
+		render() {
 			return (
-				<div className="entry" onClick={location.hash = '${this.props.name}'}>
-					<div className="entry-cell entry-area work">${isInWork(this.props.properties) ? this.props.name : ''}</div>
-					<div className="entry-cell diff">${diff(this.props.properties)}</div>
-					<div className="entry-cell entry-area cache">${isInCache(this.props.properties) ? this.props.name : ''}</div>
-					<div className="entry-cell diffcached">${diffCached(this.props.properties)}</div>
-					<div className="entry-cell entry-area tree">${isInTree(this.props.properties) ? this.props.name : ''}</div>
+				<div>
+					<div>
+						{this.props.rows.map(row => <Row key={'key-'+row.record} name={row.record} properties={row.status} />)}
+					</div>
 				</div>
-				)
+			);
 		}
-	}
+	});
+
+	const Row = React.createClass({
+		location() {
+			location.hash = this.props.name;
+		},
+
+		render() {
+			return (
+				<div className="entry" onClick={this.location}>
+					<div className="entry-cell entry-area work">{isInWork(this.props.properties) ? this.props.name : ''}</div>
+					<div className="entry-cell diff">{diff(this.props.properties)}</div>
+					<div className="entry-cell entry-area cache">{isInCache(this.props.properties) ? this.props.name : ''}</div>
+					<div className="entry-cell diffcached">{diffCached(this.props.properties)}</div>
+					<div className="entry-cell entry-area tree">{isInTree(this.props.properties) ? this.props.name : ''}</div>
+				</div>
+			);
+		}
+	});
 
 	function isInWork(props){
 		return !props.isDeleted;
@@ -168,6 +195,7 @@ $( document ).ready(function() {
 		}
 		return ''
 	}
+
 	function diffCached(props){
 		if (isInCache(props) && !isInTree(props)){
 			return 'new'
@@ -181,51 +209,6 @@ $( document ).ready(function() {
 		return ''
 	}
 
-	function myLoadAreas(){
-		if (document.location.hash !== ''){
-	    	loadAreas(document.location.hash.replace('#',''));
-	    } else {
-            $('#filenamename').html('-');
-			$('#tree').html('');
-			$('#work').html('');
-			$('#cache').html('');
-	    }
-	}
-
-
-	function loadAreas(name){
-	    var workPromise = $.get(`/api/diff/${name}`);
-	    var cachePromise = $.get(`/api/diffCached/${name}`);
-	    var treePromise = $.get(`/api/entry/${name}`);
-    	$.when(workPromise,cachePromise,treePromise).then((r1, r2, r3)=>{
-    		$('#filenamename').html(name);
-			var tree = r3[0];
-			$('#tree').html(tree);
-
-
-			var diff = r1[0];
-			if (diff.length > 0){
-						var work = tree.split(/\r?\n/).map(x=>x+'\n');
-						var work1 = applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines)
-						$('#work').html(work1.join(''));
-			} else {
-						$('#work').html(tree);
-
-			}
-			var diffCached = r2[0];
-			if (diffCached.length > 0){
-						var cache = tree.split(/\r?\n/).map(x=>x+'\n');
-						var cache1 = applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines)
-						$('#cache').html(cache1.join(''));
-					} else {
-						$('#cache').html(tree);
-						
-					}
-
-		});
-
-    }
-
 	function renderGitLens() {
 		ReactDOM.render(
 		<GitLens />,
@@ -234,7 +217,6 @@ $( document ).ready(function() {
 	}
 
 	renderGitLens();
-	loadData();
 
 }
 )
