@@ -4,6 +4,7 @@ $( document ).ready(function() {
 
 	const GitLens = React.createClass({
 		getInitialState () {
+			this.hashchange()
 			this.loadData();
 			return {
 				rows: []
@@ -22,6 +23,13 @@ $( document ).ready(function() {
 			if (this.checked){
 				this.manageChange();
 			}
+		},
+
+		hashchange() {
+			$(window).bind('hashchange', (function(e) { 
+							var anchor = document.location.hash;
+							this.loadAreas(anchor.replace('#', ''))
+						}).bind(this));
 		},
 
 		loadData() {
