@@ -13,7 +13,7 @@ $( document ).ready(function() {
 
 		manageChange(){
 			if (this.checked){
-				loadData();
+				this.loadData();
 				setTimeout(this.manageChange, 500);
 			}
 		},
