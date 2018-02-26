@@ -115,7 +115,7 @@ $( document ).ready(function() {
 			return (
 				<div>
 					<div>
-						<h1>GitLens 2.0 <img width="5%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/2000px-Git-logo.svg.png" /></h1>
+						<h1>GitLens 2.0 <img width="5%" src=".././images/gitLogo.png" /></h1>
 						<span>Welcome to GitLens</span>
 					</div>
 					<div style={{marginTop: '14px'}}>
@@ -169,15 +169,24 @@ $( document ).ready(function() {
 		render() {
 			return (
 				<div className="entry" onClick={this.location}>
-					<div className="entry-cell entry-area work">{isInWork(this.props.properties) ? this.props.name : ''}</div>
+					<div id="block" className="entry-cell entry-area work">{isInWork(this.props.properties) ? this.props.name : ''}</div>
 					<div className="entry-cell diff">{diff(this.props.properties)}</div>
-					<div className="entry-cell entry-area cache">{isInCache(this.props.properties) ? this.props.name : ''}</div>
+					<div id="block" className="entry-cell entry-area cache">{isInCache(this.props.properties) ? this.props.name : ''}</div>
 					<div className="entry-cell diffcached">{diffCached(this.props.properties)}</div>
-					<div className="entry-cell entry-area tree">{isInTree(this.props.properties) ? this.props.name : ''}</div>
+					<div id="block" className="entry-cell entry-area tree">{isInTree(this.props.properties) ? this.props.name : ''}</div>
 				</div>
 			);
 		}
 	});
+
+	function changeBackgroundColor(){
+		let work = document.getElementById("work");
+		let cache = document.getElementById("cache");
+		let tree = document.getElementById("tree");
+		work.style.backgroundColor='#ff9933';
+		cache.style.backgroundColor='#ff9933';
+		tree.style.backgroundColor='#ff9933';
+	}
 
 	function isInWork(props){
 		return !props.isDeleted;

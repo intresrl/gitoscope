@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:  #ffb366;
 }
 
 #repo {
@@ -11,14 +12,18 @@ body {
 	/*border: 1px solid black;*/
 }
 
-.entry{
+.entry {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 }
 
-.entry:hover {
-	background-color:#c3c3c3;
+.entry:hover{
+	background-color: #ff6600;
+}
+
+.entry:hover > #block{
+	background-color: #ff6600;
 }
 
 .header-entry{
@@ -40,12 +45,14 @@ body {
 
 .entry:first-of-type .entry-area{
 	border-top: 1px solid black;
+	background-color: #ff9933;
 }
 .entry:last-of-type .entry-area{
 	border-bottom: 1px solid black;
 }
 
 .entry-area{
+	background-color: #ff9933;
 	border-width: 0 1px;
 	border-color:black;
 	border-style: solid;
@@ -83,6 +90,7 @@ body {
 }
 
 #areas > div{
+	background-color: #ff9933;
 	width: 25%;
 	border: 1px solid black;
 	padding: 4px;
