@@ -115,7 +115,7 @@ $( document ).ready(function() {
 			return (
 				<div>
 					<div>
-						<h1>GitLens 2.0</h1>
+						<h1>GitLens 2.0 <img width="5%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/2000px-Git-logo.svg.png" /></h1>
 						<span>Welcome to GitLens</span>
 					</div>
 					<div style={{marginTop: '14px'}}>
@@ -130,7 +130,7 @@ $( document ).ready(function() {
 					</div>
 				</div>
 				);
-		},
+		}
 	});
 
 	const Header = React.createClass({
