@@ -24,6 +24,8 @@ body {
 
 .entry:hover > #block{
 	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
 }
 
 .header-entry{
@@ -68,6 +70,7 @@ body {
 	color: red;
 	
 }
+
 .entry .cache{
 	/*width: 30%;*/
 }
@@ -100,4 +103,12 @@ body {
 #gitgraph{
 	height:450px;
 	background-color: #9ac3a7;
+}
+
+#filenamename{
+	margin-top: 12px;
+}
+
+.title{
+	background-color: #ff9933;
 }
