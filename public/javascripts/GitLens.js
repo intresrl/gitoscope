@@ -7,17 +7,17 @@ const GitLens = React.createClass({
 			};
 		},
 
-		manageChange(){
+		manageCheckbox(){
 			if (this.checked){
 				this.loadData();
-				setTimeout(this.manageChange, 500);
+				setTimeout(this.manageCheckbox, 500);
 			}
 		},
 
-		change(event) {
+		tickCheckbox(event) {
 			this.checked = event.target.checked;
 			if (this.checked){
-				this.manageChange();
+				this.manageCheckbox();
 			}
 		},
 
@@ -55,7 +55,6 @@ const GitLens = React.createClass({
 				});
 
 				this.setState({rows : entries});
-
 			})
 		},
 
@@ -79,7 +78,6 @@ const GitLens = React.createClass({
 				var tree = r3[0];
 				$('#tree').html(tree);
 
-
 				var diff = r1[0];
 				if (diff.length > 0){
 					var work = tree.split(/\r?\n/).map(x=>x+'\n');
@@ -95,11 +93,8 @@ const GitLens = React.createClass({
 					$('#cache').html(cache1.join(''));
 				} else {
 					$('#cache').html(tree);
-
 				}
-
 			});
-
 		},
 
 		applyDiffLines(oldLinesv, oldStart, oldLines, lines){
@@ -111,13 +106,13 @@ const GitLens = React.createClass({
 			return (
 				<div>
 					<div className="jumbotron title">
-  						<h1 className="display-4">GitLens 2.0 <img width="5%" src=".././images/gitLogo.png" /></h1>
+  						<h1 className="display-4">GitLens 2.0 <img width="6%" src=".././images/gitLogo.png" /></h1>
   						<p className="lead">Welcome to GitLens</p>
   						<hr className="my-4" />
   						<p className="lead" style={{marginTop: '14px'}}>
 							<button type="button" className="btn btn-outline-dark" onClick={this.loadData}>reload</button>
 							<span style={{marginLeft: '20px'}}>
-								autoreload <input type="checkbox" id="autoreload" onChange={this.change} />
+								autoreload <input type="checkbox" id="autoreload" onChange={this.tickCheckbox} />
 							</span>
   						</p>
 					</div>
