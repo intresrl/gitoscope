@@ -2,6 +2,8 @@
 
 $( document ).ready(function() {
 
+	const GitLens = GL.GitLens;
+
 	function renderGitLens() {
 		ReactDOM.render(
 		<GitLens />,

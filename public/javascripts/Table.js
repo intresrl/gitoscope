@@ -1,15 +1,19 @@
-const Table = React.createClass({
-		propTypes: {
-			rows: React.PropTypes.array.isRequired
-		},
+const Row = GL.Row;
 
-		render() {
-			return (
-				<div>
+(function() {
+	window.GL.Table = React.createClass({
+			propTypes: {
+				rows: React.PropTypes.array.isRequired
+			},
+
+			render() {
+				return (
 					<div>
-						{this.props.rows.map(row => <Row key={'key-'+row.record} name={row.record} properties={row.status} />)}
+						<div>
+							{this.props.rows.map(row => <Row key={'key-'+row.record} name={row.record} properties={row.status} />)}
+						</div>
 					</div>
-				</div>
-			);
-		}
-});
+				);
+			}
+	});
+})()
