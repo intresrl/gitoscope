@@ -1,7 +1,6 @@
-const Table = GL.Table;
-const Header = GL.Header;
-
 (function(){
+	const Table = GL.Table;
+	const Header = GL.Header;
 	window.GL.GitLens = React.createClass({
 			getInitialState () {
 				this.hashManager()

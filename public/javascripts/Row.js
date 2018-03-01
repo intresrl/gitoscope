@@ -1,10 +1,9 @@
-const isInWork = GL.utilities.isInWork;
-const isInCache = GL.utilities.isInCache;
-const isInTree = GL.utilities.isInTree;
-const diff = GL.utilities.diff;
-const diffCached = GL.utilities.diffCached;
-
 (function(){
+	const isInWork = GL.utilities.isInWork;
+	const isInCache = GL.utilities.isInCache;
+	const isInTree = GL.utilities.isInTree;
+	const diff = GL.utilities.diff;
+	const diffCached = GL.utilities.diffCached;
 	window.GL.Row = React.createClass({
 			location() {
 				location.hash = this.props.name;

@@ -2,26 +2,20 @@
 	window.GL.utilities.isInWork = function isInWork(props){
 		return !props.isDeleted;
 	}
-})();
 
-(function(){
 	window.GL.utilities.isInCache = function isInCache(props){
 		return !((props.inIndex && props.isDeleted) || (props.isNew && !props.inIndex));
 	}
-})();
 
-(function(){
 	window.GL.utilities.isInTree = function isInTree(props){
 		return props.inTree;
 	}
-})();
 
-(function(){
 	window.GL.utilities.diff = function diff(props){
-		if (isInWork(props) && !isInCache(props)){
+		if (GL.utilities.isInWork(props) && !GL.utilities.isInCache(props)){
 			return 'untracked'
 		}
-		if (!isInWork(props) && isInCache(props)){
+		if (!GL.utilities.isInWork(props) && GL.utilities.isInCache(props)){
 			return 'deleted'
 		}
 		if (props.inWorkingTree && ! props.isDeleted && !props.isNew){
@@ -29,14 +23,12 @@
 		}
 		return ''
 	}
-})();
 
-(function(){
 	window.GL.utilities.diffCached = function diffCached(props){
-		if (isInCache(props) && !isInTree(props)){
+		if (GL.utilities.isInCache(props) && !GL.utilities.isInTree(props)){
 			return 'new'
 		}
-		if (!isInCache(props) && isInTree(props)){
+		if (!GL.utilities.isInCache(props) && GL.utilities.isInTree(props)){
 			return 'deleted'
 		}
 		if (props.inIndex && props.isModified){

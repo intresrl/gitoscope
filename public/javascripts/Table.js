@@ -1,6 +1,5 @@
-const Row = GL.Row;
-
 (function() {
+	const Row = GL.Row;
 	window.GL.Table = React.createClass({
 			propTypes: {
 				rows: React.PropTypes.array.isRequired

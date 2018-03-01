@@ -1,4 +1,4 @@
-//alert("qui ci metto tutto quello che serve per react")
+//qui ci metto tutto quello che serve per react
 
 $( document ).ready(function() {
 
