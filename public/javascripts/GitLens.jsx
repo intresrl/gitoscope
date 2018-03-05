@@ -1,6 +1,7 @@
 (function(){
 	const Table = GL.Table;
 	const Header = GL.Header;
+
 	window.GL.GitLens = React.createClass({
 			getInitialState () {
 				this.hashManager()
@@ -25,8 +26,8 @@
 			},
 
 			hashManager() {
-				$(window).bind('hashchange', (function(e) { 
-								var anchor = document.location.hash;
+				$(window).bind('hashchange', (function() { 
+								let anchor = document.location.hash;
 								this.loadAreas(anchor.replace('#', ''))
 							}).bind(this));
 			},
@@ -37,11 +38,12 @@
 			},
 
 			updateStatus(){
-				var treePromise = $.get('/api/tree');
-				var statusPromise = $.get('/api/status');
+				let treePromise = $.get('/api/tree');
+				let statusPromise = $.get('/api/status');
+
 				$.when(treePromise, statusPromise).then((r1, r2)=>{
-					var tree = r1[0];
-					var status = r2[0];
+					let tree = r1[0];
+					let status = r2[0];
 
 					tree.forEach((entry)=>{
 						if (status[entry]){
@@ -51,9 +53,9 @@
 						}
 					});
 
-					var entries = [];
+					let entries = [];
 					Object.keys(status).sort().forEach(entry => {
-						var row = {record:entry, status:status[entry]};
+						let row = {record:entry, status:status[entry]};
 						entries.push(row);
 					});
 
@@ -73,27 +75,29 @@
 			},
 
 			loadAreas(name){
-				var workPromise = $.get(`/api/diff/${name}`);
-				var cachePromise = $.get(`/api/diffCached/${name}`);
-				var treePromise = $.get(`/api/entry/${name}`);
-				$.when(workPromise,cachePromise,treePromise).then((r1, r2, r3)=>{
+				let workPromise = $.get(`/api/diff/${name}`);
+				let cachePromise = $.get(`/api/diffCached/${name}`);
+				let treePromise = $.get(`/api/entry/${name}`);
+
+				$.when(workPromise, cachePromise, treePromise).then((r1, r2, r3)=>{
 					$('#filenamename').html(name);
-					var tree = r3[0];
+					let tree = r3[0];
 					$('#tree').html(tree);
 
-					var diff = r1[0];
+					let diff = r1[0];
 					if (diff.length > 0){
-						var work = tree.split(/\r?\n/).map(x=>x+'\n');
-						var work1 = this.applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines)
-						$('#work').html(work1.join(''));
+						let work = tree.split(/\r?\n/).map(x => x + '\n');
+						let workDiffLines = this.applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines)
+						$('#work').html(workDiffLines.join(''));
 					} else {
 						$('#work').html(tree);
 					}
-					var diffCached = r2[0];
+					
+					let diffCached = r2[0];
 					if (diffCached.length > 0){
-						var cache = tree.split(/\r?\n/).map(x=>x+'\n');
-						var cache1 = this.applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines)
-						$('#cache').html(cache1.join(''));
+						let cache = tree.split(/\r?\n/).map(x => x + '\n');
+						let cacheDiffLines = this.applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines)
+						$('#cache').html(cacheDiffLines.join(''));
 					} else {
 						$('#cache').html(tree);
 					}

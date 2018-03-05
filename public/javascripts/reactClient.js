@@ -1,10 +1,9 @@
-//qui ci metto tutto quello che serve per react
-
+//Make the function available after the DOM has been loaded.
 $( document ).ready(function() {
 
-	const GitLens = GL.GitLens;
-
 	function renderGitLens() {
+		const GitLens = GL.GitLens;
+
 		ReactDOM.render(
 		<GitLens />,
 		document.getElementById('GitLens')

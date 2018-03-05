@@ -4,8 +4,10 @@
 	const isInTree = GL.utilities.isInTree;
 	const diff = GL.utilities.diff;
 	const diffCached = GL.utilities.diffCached;
+	
 	window.GL.Row = React.createClass({
 			location() {
+				//Return the anchor part of a URL
 				location.hash = this.props.name;
 			},
 
