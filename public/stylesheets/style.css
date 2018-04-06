@@ -20,7 +20,31 @@ body {
 	background-color: #ff6600;
 }
 
-.entry:hover > #block {
+.entry:hover > #block1 {
+	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
+}
+
+.entry:hover > #block2 {
+	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
+}
+
+.entry:hover > #block3 {
+	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
+}
+
+.entry:hover > #block4 {
+	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
+}
+
+.entry:hover > #block5 {
 	background-color: #ff6600;
 	color: white;
 	font-weight: bold;

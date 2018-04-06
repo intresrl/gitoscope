@@ -13,27 +13,27 @@
 
 	window.GL.utilities.diff = function diff(props){
 		if (GL.utilities.isInWork(props) && !GL.utilities.isInCache(props)){
-			return 'untracked'
+			return 'untracked';
 		}
 		if (!GL.utilities.isInWork(props) && GL.utilities.isInCache(props)){
-			return 'deleted'
+			return 'deleted';
 		}
 		if (props.inWorkingTree && ! props.isDeleted && !props.isNew){
-			return 'modified'
+			return 'modified';
 		}
-		return ''
+		return '';
 	}
 
 	window.GL.utilities.diffCached = function diffCached(props){
 		if (GL.utilities.isInCache(props) && !GL.utilities.isInTree(props)){
-			return 'new'
+			return 'new';
 		}
 		if (!GL.utilities.isInCache(props) && GL.utilities.isInTree(props)){
-			return 'deleted'
+			return 'deleted';
 		}
 		if (props.inIndex && props.isModified){
-			return 'modified'
+			return 'modified';
 		}
-		return ''
+		return '';
 	}
 })();

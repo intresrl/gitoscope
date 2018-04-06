@@ -4,11 +4,14 @@
 
 	window.GL.GitLens = React.createClass({
 			getInitialState () {
-				this.hashManager()
-				this.loadData();
 				return {
 					rows: []
 				};
+			},
+
+			componentWillMount () {
+				this.hashManager();
+				this.loadData();
 			},
 
 			manageCheckbox(){
@@ -28,7 +31,7 @@
 			hashManager() {
 				$(window).bind('hashchange', (function() { 
 								let anchor = document.location.hash;
-								this.loadAreas(anchor.replace('#', ''))
+								this.loadAreas(anchor.replace('#', ''));
 							}).bind(this));
 			},
 
@@ -45,7 +48,7 @@
 					let tree = r1[0];
 					let status = r2[0];
 
-					tree.forEach((entry)=>{
+					tree.forEach((entry) => {
 						if (status[entry]){
 							status[entry].inTree = true;
 						} else {
@@ -64,7 +67,7 @@
 			},
 
 			myLoadAreas(){
-				if (document.location.hash !== ''){
+				if (document.location.hash !== '') {
 					this.loadAreas(document.location.hash.replace('#',''));
 				} else {
 					$('#filenamename').html('-');
@@ -87,7 +90,7 @@
 					let diff = r1[0];
 					if (diff.length > 0){
 						let work = tree.split(/\r?\n/).map(x => x + '\n');
-						let workDiffLines = this.applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines)
+						let workDiffLines = this.applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines);
 						$('#work').html(workDiffLines.join(''));
 					} else {
 						$('#work').html(tree);
@@ -96,7 +99,7 @@
 					let diffCached = r2[0];
 					if (diffCached.length > 0){
 						let cache = tree.split(/\r?\n/).map(x => x + '\n');
-						let cacheDiffLines = this.applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines)
+						let cacheDiffLines = this.applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines);
 						$('#cache').html(cacheDiffLines.join(''));
 					} else {
 						$('#cache').html(tree);
@@ -105,7 +108,7 @@
 			},
 
 			applyDiffLines(oldLinesv, oldStart, oldLines, lines){
-				oldLinesv.splice(oldStart -1, oldLines, ...lines)
+				oldLinesv.splice(oldStart -1, oldLines, ...lines);
 				return oldLinesv;
 			},
 
@@ -113,8 +116,9 @@
 				return (
 					<div>
 						<div className="jumbotron title">
-	  						<h1 className="display-4">GitLens 2.0 <img width="6%" src=".././images/gitLogo.png" /></h1>
+	  						<h1 className="display-4">GitLens 2.0 <img width="6%" src="../images/gitLogo.png" /></h1>
 	  						<p className="lead">Welcome to GitLens</p>
+	  						<p><a target="_blank" href="http://localhost:3000/internals">go to the graph of the repository</a></p>
 	  						<hr className="my-4" />
 	  						<p className="lead" style={{marginTop: '14px'}}>
 								<button type="button" className="btn btn-outline-dark" onClick={this.loadData}>reload</button>
