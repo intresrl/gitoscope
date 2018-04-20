@@ -4,11 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+try {
+    var config = require('./config');
+} catch (err) {
+    console.log('You don\'t seem to have a configuration file. Create one by copying config.js.template to config.js')
+    process.exit(0);
+}
 // var favicon = require('serve-favicon');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var api = require('./routes/api');
+
+console.log('Exploring git repository located at: ' + config.repo)
 
 var app = express();
 

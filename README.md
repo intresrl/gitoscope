@@ -7,7 +7,7 @@ Tool to inspect the current git status of a project
 You need to have node (with npm) and nodemon (`npm install nodemon`)
 It starts on localhost:3000
 
-* Change the absolute path to the repo you want to watch in git.js
+* Copy config.js.template to config.js and set the path of the repo you want to explore
 * run `npm install`
 * run `npm run start`
 
