@@ -1,0 +1,2 @@
+window.GL = {};
+GL.utilities = {};

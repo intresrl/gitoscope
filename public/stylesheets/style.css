@@ -1,27 +1,56 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:  #ffb366;
 }
 
 #repo {
-	/*background-color:blue;*/
 	width: 100%;
-	display:flex;
+	display: flex;
 	flex-direction: column;
-	/*border: 1px solid black;*/
 }
 
-.entry{
+.entry {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 }
 
 .entry:hover {
-	background-color:#c3c3c3;
+	background-color: #ff6600;
 }
 
-.header-entry{
+.entry:hover > #block1 {
+	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
+}
+
+.entry:hover > #block2 {
+	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
+}
+
+.entry:hover > #block3 {
+	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
+}
+
+.entry:hover > #block4 {
+	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
+}
+
+.entry:hover > #block5 {
+	background-color: #ff6600;
+	color: white;
+	font-weight: bold;
+}
+
+.header-entry {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -29,51 +58,45 @@ body {
 	text-decoration: underline;
 }
 
-.header-entry>div{
-	width:25%;
+.header-entry > div {
+	width: 25%;
 	text-align: center;
 }
 
-.entry-cell{
+.entry-cell {
 	padding: 4px;
 }
 
-.entry:first-of-type .entry-area{
-	border-top: 1px solid black;
+.entry:first-of-type .entry-area {
+	border-top: 2px solid black;
+	background-color: #ff9933;
 }
-.entry:last-of-type .entry-area{
-	border-bottom: 1px solid black;
+.entry:last-of-type .entry-area {
+	border-bottom: 2px solid black;
 }
 
-.entry-area{
-	border-width: 0 1px;
-	border-color:black;
+.entry-area {
+	background-color: #ff9933;
+	border-width: 0 2px;
+	border-color: black;
 	border-style: solid;
 	width: 25%;
 }
 
-.entry .work{
-	/*width: 30%;*/
-}
-.entry .diff{
+.entry .diff {
 	width: 5%;
 	text-align: center;
 	color: red;
 	
 }
-.entry .cache{
-	/*width: 30%;*/
-}
-.entry .diffcached{
+
+.entry .diffcached {
 	width: 5%;
 	text-align: center;
 	color: green;
 }
-.entry .tree{
-	/*width: 30%;*/
-}
 
-#areas{
+#areas {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
@@ -82,14 +105,23 @@ body {
 	align-items: stretch;
 }
 
-#areas > div{
+#areas > div {
+	background-color: #ff9933;
 	width: 25%;
-	border: 1px solid black;
+	border: 2px solid black;
 	padding: 4px;
     white-space: pre-wrap;
 }
 
-#gitgraph{
-	height:450px;
+#gitgraph {
+	height: 450px;
 	background-color: #9ac3a7;
+}
+
+#filenamename {
+	margin-top: 12px;
+}
+
+.title {
+	background-color: #ff9933;
 }

@@ -14,3 +14,6 @@ It starts on localhost:3000
 # Develop
 * run `npm run watch`
 * activate debug on windows `set DEBUG=* & npm run watch`
+
+# Debug
+* run `npm run debug`
