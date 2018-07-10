@@ -14,7 +14,6 @@ try {
 // var favicon = require('serve-favicon');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var api = require('./routes/api');
 
 console.log('Exploring git repository located at: ' + config.repo)
