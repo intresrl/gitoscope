@@ -41,7 +41,7 @@
 			},
 
 			updateStatus(){
-				let treePromise = $.get('/api/tree');
+				let treePromise = $.get('/api/HEAD/files');
 				let statusPromise = $.get('/api/status');
 
 				$.when(treePromise, statusPromise).then((r1, r2)=>{
