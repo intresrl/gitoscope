@@ -1,10 +1,10 @@
-Git Lens
+Gitoscope
 ========
 
 Tool to inspect the current git status of a project
 
 # How to run
-You need to have node (with npm) and nodemon (`npm install nodemon`)
+You need to have node (with npm)
 It starts on localhost:3000
 
 * Copy config.js.template to config.js and set the path of the repo you want to explore
