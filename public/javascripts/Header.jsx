@@ -1,5 +1,5 @@
 (function(){
-	window.GL.Header = React.createClass({
+	window.Gitoscope.Header = React.createClass({
 			render() {
 				return (
 					<div className={this.props.classNameDivAreas}>

@@ -1,11 +1,11 @@
 (function(){
-	const isInWork = GL.utilities.isInWork;
-	const isInCache = GL.utilities.isInCache;
-	const isInTree = GL.utilities.isInTree;
-	const diff = GL.utilities.diff;
-	const diffCached = GL.utilities.diffCached;
+	const isInWork = Gitoscope.utilities.isInWork;
+	const isInCache = Gitoscope.utilities.isInCache;
+	const isInTree = Gitoscope.utilities.isInTree;
+	const diff = Gitoscope.utilities.diff;
+	const diffCached = Gitoscope.utilities.diffCached;
 	
-	window.GL.Row = React.createClass({
+	window.Gitoscope.Row = React.createClass({
 			location() {
 				//Return the anchor part of a URL
 				location.hash = this.props.name;

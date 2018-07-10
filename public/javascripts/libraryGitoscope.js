@@ -1,0 +1,2 @@
+window.Gitoscope = {};
+Gitoscope.utilities = {};

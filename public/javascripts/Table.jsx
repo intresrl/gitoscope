@@ -1,7 +1,7 @@
 (function() {
-	const Row = GL.Row;
+	const Row = Gitoscope.Row;
 	
-	window.GL.Table = React.createClass({
+	window.Gitoscope.Table = React.createClass({
 			propTypes: {
 				rows: React.PropTypes.array.isRequired
 			},

@@ -1,14 +1,6 @@
 $( document ).ready(function() {
 
-	function renderGitLens() {
-		const GitLens = GL.GitLens;
+    const GitoscopePage = Gitoscope.Gitoscope;
 
-		ReactDOM.render(
-			<GitLens />,
-			document.getElementById('GitLens')
-		);
-	}
-
-	renderGitLens();
-
+    ReactDOM.render( <GitoscopePage />, document.getElementById('Gitoscope') );
 });

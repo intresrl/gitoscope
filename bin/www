@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('gitlens:server');
+var debug = require('debug')('gitoscope:server');
 var http = require('http');
 
 /**
@@ -28,7 +28,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-console.log('Serving gitLens at http://localhost:' + port)
+console.log('Serving gitoscope at http://localhost:' + port)
 
 /**
  * Normalize a port into a number, string, or false.

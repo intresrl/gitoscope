@@ -1,8 +1,8 @@
 (function(){
-	const Table = GL.Table;
-	const Header = GL.Header;
+	const Table = Gitoscope.Table;
+	const Header = Gitoscope.Header;
 
-	window.GL.GitLens = React.createClass({
+	window.Gitoscope.Gitoscope = React.createClass({
 			getInitialState () {
 				return {
 					rows: []
@@ -116,8 +116,7 @@
 				return (
 					<div>
 						<div className="jumbotron title">
-	  						<h1 className="display-4">GitLens 2.0 <img width="6%" src="../images/gitLogo.png" /></h1>
-	  						<p className="lead">Welcome to GitLens</p>
+	  						<h1 className="display-4">Gitoscope <img width="6%" src="../images/gitLogo.png" /></h1>
 	  						<p><a target="_blank" href="http://localhost:3000/internals">go to the graph of the repository</a></p>
 	  						<hr className="my-4" />
 	  						<p className="lead" style={{marginTop: '14px'}}>
