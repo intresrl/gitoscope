@@ -118,7 +118,7 @@
 						<div className="title">
                             <div>
                                 <h1 className="display-4"><img width="6%" src="./images/gitoscope_logo.png" />Gitoscope </h1>
-                                <a target="_blank" href="http://localhost:3000/internals">go to the graph of the repository</a>
+                                <a target="_blank" href="/internals">go to the graph of the repository</a>
 							</div>
 	  						<div className="reloader">
 								<button type="button" className="btn btn-outline-dark" onClick={this.loadData}>reload</button>
