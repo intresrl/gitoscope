@@ -115,17 +115,19 @@
 			render() {
 				return (
 					<div>
-						<div className="jumbotron title">
-	  						<h1 className="display-4">Gitoscope <img width="6%" src="../images/gitLogo.png" /></h1>
-	  						<p><a target="_blank" href="http://localhost:3000/internals">go to the graph of the repository</a></p>
-	  						<hr className="my-4" />
-	  						<p className="lead" style={{marginTop: '14px'}}>
+						<div className="title">
+                            <div>
+                                <h1 className="display-4"><img width="6%" src="./images/gitoscope_logo.png" />Gitoscope </h1>
+                                <a target="_blank" href="http://localhost:3000/internals">go to the graph of the repository</a>
+							</div>
+	  						<div className="reloader">
 								<button type="button" className="btn btn-outline-dark" onClick={this.loadData}>reload</button>
 								<span style={{marginLeft: '20px'}}>
 									autoreload <input type="checkbox" id="autoreload" onChange={this.tickCheckbox} />
 								</span>
-	  						</p>
+	  						</div>
 						</div>
+                        <hr className="my-4" />
 						<div>
 							<Header classNameDivAreas="header-entry" classNameSingleAreas="area-title" titleArea1="Working copy" titleArea2="Staging Area" titleArea3="HEAD commit" />
 							<Table rows={this.state.rows} />

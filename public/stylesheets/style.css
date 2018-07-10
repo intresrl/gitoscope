@@ -1,7 +1,17 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color:  #ffb366;
+  background-color:  white;
+}
+
+.title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.reloader {
+	flex-shrink: 0;
 }
 
 #repo {
@@ -17,37 +27,11 @@ body {
 }
 
 .entry:hover {
-	background-color: #ff6600;
+	background-color: #007bff;
 }
 
-.entry:hover > #block1 {
-	background-color: #ff6600;
+.entry:hover > .entry-cell {
 	color: white;
-	font-weight: bold;
-}
-
-.entry:hover > #block2 {
-	background-color: #ff6600;
-	color: white;
-	font-weight: bold;
-}
-
-.entry:hover > #block3 {
-	background-color: #ff6600;
-	color: white;
-	font-weight: bold;
-}
-
-.entry:hover > #block4 {
-	background-color: #ff6600;
-	color: white;
-	font-weight: bold;
-}
-
-.entry:hover > #block5 {
-	background-color: #ff6600;
-	color: white;
-	font-weight: bold;
 }
 
 .header-entry {
@@ -65,34 +49,33 @@ body {
 
 .entry-cell {
 	padding: 4px;
+	border-color: #ccc;
 }
-
 .entry:first-of-type .entry-area {
-	border-top: 2px solid black;
-	background-color: #ff9933;
+	border-top-width: 2px;
+	border-top-style: solid;
 }
 .entry:last-of-type .entry-area {
-	border-bottom: 2px solid black;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
 }
 
 .entry-area {
-	background-color: #ff9933;
 	border-width: 0 2px;
-	border-color: black;
 	border-style: solid;
 	width: 25%;
 }
 
-.entry .diff {
+.entry .diff-area {
 	width: 5%;
 	text-align: center;
+}
+
+.entry .diff {
 	color: red;
-	
 }
 
 .entry .diffcached {
-	width: 5%;
-	text-align: center;
 	color: green;
 }
 
@@ -106,9 +89,8 @@ body {
 }
 
 #areas > div {
-	background-color: #ff9933;
 	width: 25%;
-	border: 2px solid black;
+	border: 2px solid #ccc;
 	padding: 4px;
     white-space: pre-wrap;
 }
@@ -120,8 +102,4 @@ body {
 
 #filenamename {
 	margin-top: 12px;
-}
-
-.title {
-	background-color: #ff9933;
 }
