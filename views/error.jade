@@ -1,6 +1,12 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="https://code.jquery.com/jquery-3.1.1.js")
+    script(src="/javascripts/apiClient.js")
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  body
+    h1= message
+    h2= error.status
+    pre #{error.stack}

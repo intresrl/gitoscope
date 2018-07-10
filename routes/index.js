@@ -7,11 +7,7 @@ router.get('/internals', function(req, res, next){
 });
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Gitoscope' });
-});
-
-router.get('/react', function(req, res, next) {
-  res.render('indexReact', { });
+  res.render('index', {});
 });
 
 module.exports = router;
