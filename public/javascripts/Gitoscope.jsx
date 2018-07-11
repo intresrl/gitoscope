@@ -41,29 +41,13 @@
 			},
 
 			updateStatus(){
-				let treePromise = $.get('/api/HEAD/files');
-				let statusPromise = $.get('/api/status');
-
-				$.when(treePromise, statusPromise).then((r1, r2)=>{
-					let tree = r1[0];
-					let status = r2[0];
-
-					tree.forEach((entry) => {
-						if (status[entry]){
-							status[entry].inTree = true;
-						} else {
-							status[entry] = {inTree: true};
-						}
-					});
-
-					let entries = [];
-					Object.keys(status).sort().forEach(entry => {
-						let row = {record:entry, status:status[entry]};
-						entries.push(row);
+				$.get('/api/status', status => {
+					const entries = Object.keys(status).sort().map(entry => {
+						return {record:entry, status:status[entry]};
 					});
 
 					this.setState({rows : entries});
-				})
+				});
 			},
 
 			myLoadAreas(){
@@ -136,4 +120,4 @@
 					);
 			}
 	});
-})()
+})();

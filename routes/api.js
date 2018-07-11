@@ -4,7 +4,6 @@ const apiController = require('../controllers/apiController');
 const router = express.Router();
 
 router.get('/status', apiController.getStatus);
-router.get('/HEAD/files', apiController.getListOfFilesInHeadCommit);
 router.get('/entry/:name([\\w.]+)', apiController.getEntry);
 router.get('/diff/:name([\\w.]+)', apiController.getDiff);
 router.get('/diffcached/:name([\\w.]+)', apiController.getDiffCached);
