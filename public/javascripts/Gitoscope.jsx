@@ -64,32 +64,18 @@
 
 				$.when(workPromise, cachePromise, treePromise).then((r1, r2, r3)=>{
 					const tree = r3[0];
-				    const nextState = {currentFileName: name, currentFileCommitted: tree};
+                    const diff = r1[0];
+                    const diffCached = r2[0];
 
-					let diff = r1[0];
-					if (diff.length > 0){
-						let work = tree.split(/\r?\n/).map(x => x + '\n');
-						let workDiffLines = this.applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines);
-						nextState.currentFileWorkingCopy = workDiffLines.join('');
-					} else {
-						nextState.currentFileWorkingCopy = tree;
-					}
-					
-					let diffCached = r2[0];
-					if (diffCached.length > 0){
-						let cache = tree.split(/\r?\n/).map(x => x + '\n');
-						let cacheDiffLines = this.applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines);
-						nextState.currentFileCached = cacheDiffLines.join('');
-					} else {
-						nextState.currentFileCached = tree;
-					}
+                    const nextState = {
+                    	currentFileName: name,
+						currentFileCommitted: tree,
+                        currentFileWorkingCopy : diff,
+                        currentFileCached : diffCached
+                    };
+
 					this.setState(nextState);
 				});
-			},
-
-			applyDiffLines(oldLinesv, oldStart, oldLines, lines){
-				oldLinesv.splice(oldStart -1, oldLines, ...lines);
-				return oldLinesv;
 			},
 
 			render() {
