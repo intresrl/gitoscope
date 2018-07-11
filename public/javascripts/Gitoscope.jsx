@@ -1,6 +1,5 @@
 (function(){
 	const Table = Gitoscope.Table;
-	const Header = Gitoscope.Header;
 
 	window.Gitoscope.Gitoscope = React.createClass({
 			getInitialState () {
@@ -112,10 +111,7 @@
 	  						</div>
 						</div>
                         <hr className="my-4" />
-						<div>
-							<Header classNameDivAreas="header-entry" classNameSingleAreas="area-title" titleArea1="Working copy" titleArea2="Staging Area" titleArea3="HEAD commit" />
-							<Table rows={this.state.rows} />
-						</div>
+						<Table rows={this.state.rows} />
 					</div>
 					);
 			}
