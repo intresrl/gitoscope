@@ -53,10 +53,7 @@
 				if (document.location.hash !== '') {
 					this.loadAreas(document.location.hash.replace('#',''));
 				} else {
-					$('#filenamename').html('-');
-					$('#tree').html('');
-					$('#work').html('');
-					$('#cache').html('');
+					this.setState({currentFileName: '-', currentFileWorkingCopy: '', currentFileCached: '', currentFileCommitted: ''});
 				}
 			},
 
@@ -66,27 +63,27 @@
 				let treePromise = $.get(`/api/entry/${name}`);
 
 				$.when(workPromise, cachePromise, treePromise).then((r1, r2, r3)=>{
-					$('#filenamename').html(name);
-					let tree = r3[0];
-					$('#tree').html(tree);
+					const tree = r3[0];
+				    const nextState = {currentFileName: name, currentFileCommitted: tree};
 
 					let diff = r1[0];
 					if (diff.length > 0){
 						let work = tree.split(/\r?\n/).map(x => x + '\n');
 						let workDiffLines = this.applyDiffLines(work, diff[0].oldStart, diff[0].oldLines, diff[0].lines);
-						$('#work').html(workDiffLines.join(''));
+						nextState.currentFileWorkingCopy = workDiffLines.join('');
 					} else {
-						$('#work').html(tree);
+						nextState.currentFileWorkingCopy = tree;
 					}
 					
 					let diffCached = r2[0];
 					if (diffCached.length > 0){
 						let cache = tree.split(/\r?\n/).map(x => x + '\n');
 						let cacheDiffLines = this.applyDiffLines(cache, diffCached[0].oldStart, diffCached[0].oldLines, diffCached[0].lines);
-						$('#cache').html(cacheDiffLines.join(''));
+						nextState.currentFileCached = cacheDiffLines.join('');
 					} else {
-						$('#cache').html(tree);
+						nextState.currentFileCached = tree;
 					}
+					this.setState(nextState);
 				});
 			},
 
@@ -112,6 +109,14 @@
 						</div>
                         <hr className="my-4" />
 						<Table rows={this.state.rows} />
+                        <div id="filename" >
+                            <h3 id="filenamename" >{this.state.currentFileName}</h3>
+						</div>
+                        <div id="areas" >
+                            <div id="work" >{this.state.currentFileWorkingCopy}</div>
+                            <div id="cache" >{this.state.currentFileCached}</div>
+                            <div id="tree" >{this.state.currentFileCommitted}</div>
+						</div>
 					</div>
 					);
 			}
