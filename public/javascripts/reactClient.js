@@ -1,5 +1,6 @@
-$( document ).ready(function() {
+window.Gitoscope = {};
 
+$( document ).ready(function() {
     const GitoscopePage = Gitoscope.Gitoscope;
 
     ReactDOM.render( <GitoscopePage />, document.getElementById('Gitoscope') );
