@@ -83,7 +83,10 @@
 					<div>
 						<div className="title">
                             <div>
-                                <h1 className="display-4"><img width="6%" src="./images/gitoscope_logo.png" />Gitoscope </h1>
+                                <div className="titleLogo">
+                                    <img src="./images/gitoscope_logo.png" />
+                                    <h1 className="display-4">Gitoscope </h1>
+								</div>
                                 <a target="_blank" href="/internals">go to the graph of the repository</a>
 							</div>
 	  						<div className="reloader">

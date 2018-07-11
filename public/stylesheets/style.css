@@ -9,7 +9,15 @@ body {
 	justify-content: space-between;
 	align-items: center;
 }
-
+.titleLogo {
+	display: flex;
+	align-items: center;
+	height:4.2rem;
+}
+.titleLogo img{
+	height: 3.7rem;
+	margin-right: 7px;
+}
 .reloader {
 	flex-shrink: 0;
 }
