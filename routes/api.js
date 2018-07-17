@@ -4,9 +4,9 @@ const apiController = require('../controllers/apiController');
 const router = express.Router();
 
 router.get('/status', apiController.getStatus);
-router.get('/entry/:name([\\w.]+)', apiController.getEntry);
-router.get('/diff/:name([\\w.]+)', apiController.getDiff);
-router.get('/diffcached/:name([\\w.]+)', apiController.getDiffCached);
+router.get('/HEAD/entries/:name([\\w.]+)', apiController.getTreeContent);
+router.get('/workingCopy/entries/:name([\\w.]+)', apiController.getWorkingCopyContent);
+router.get('/cache/entries/:name([\\w.]+)', apiController.getCacheContent);
 
 // endpoints for internals
 router.get('/commits/:commitId(\\w+)', apiController.getCommit);

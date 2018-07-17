@@ -23,14 +23,14 @@ function parametricPromiseResponseFactory(gitFunction){
 
 const getReferences = promiseResponseFactory(git.getReferences);
 const getStatus = promiseResponseFactory(git.getStatus);
-const getEntry = parametricPromiseResponseFactory(git.getFile);
-const getDiff = parametricPromiseResponseFactory(git.getDiff);
-const getDiffCached = parametricPromiseResponseFactory(git.getDiffCached);
+const getTreeContent = parametricPromiseResponseFactory(git.getTreeContent);
+const getWorkingCopyContent = parametricPromiseResponseFactory(git.getWorkingCopyContent);
+const getCacheContent = parametricPromiseResponseFactory(git.getCacheContent);
 const getCommit = parametricResponse(git.getCommit, 'commitId');
 const getTreeRest = parametricResponse(git.getTreeRest, 'treeId');
 const getBlobRest = parametricResponse(git.getBlobRest, 'blobId');
 
 
-module.exports = {getStatus, getEntry, getDiff, getDiffCached,
+module.exports = {getStatus, getTreeContent, getWorkingCopyContent, getCacheContent,
     getCommit, getTreeRest, getBlobRest, getReferences
 };

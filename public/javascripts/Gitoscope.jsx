@@ -58,9 +58,9 @@
 			},
 
 			loadAreas(name){
-				let workPromise = $.get(`/api/diff/${name}`);
-				let cachePromise = $.get(`/api/diffCached/${name}`);
-				let treePromise = $.get(`/api/entry/${name}`);
+				let workPromise = $.get(`/api/workingCopy/entries/${name}`);
+				let cachePromise = $.get(`/api/cache/entries/${name}`);
+				let treePromise = $.get(`/api/HEAD/entries/${name}`);
 
 				$.when(workPromise, cachePromise, treePromise).then((r1, r2, r3)=>{
 					const tree = r3[0];
