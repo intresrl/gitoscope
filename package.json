@@ -13,7 +13,7 @@
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "express": "^4.17.1",
-    "jade": "~1.11.0",
+    "pug": "^2.0.4",
     "morgan": "^1.9.1",
     "nodegit": "^0.26.3",
     "serve-favicon": "^2.5.0"
