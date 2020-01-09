@@ -2,5 +2,4 @@ node_modules
 .idea
 config.js
 npm-debug.log*
-package-lock.json
 *.iml
