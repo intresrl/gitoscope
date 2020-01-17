@@ -1,4 +1,4 @@
-FROM node:8.12.0-alpine
+FROM node:12.14-alpine3.9
 EXPOSE 3000
 COPY . /app
 RUN apk update && \
